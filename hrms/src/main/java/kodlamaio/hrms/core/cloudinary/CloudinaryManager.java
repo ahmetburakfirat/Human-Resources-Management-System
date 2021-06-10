@@ -8,12 +8,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+import kodlamaio.hrms.core.image.PhotoService;
 import kodlamaio.hrms.core.utilities.DataResult;
 import kodlamaio.hrms.core.utilities.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.SuccessDataResult;
 
 @Service
-public class CloudinaryManager implements CloudinaryService{
+public class CloudinaryManager implements PhotoService{
 	
 	private Cloudinary cloudinary;
 	

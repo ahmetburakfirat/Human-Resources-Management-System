@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.ImageService;
-import kodlamaio.hrms.core.cloudinary.CloudinaryService;
+import kodlamaio.hrms.core.image.PhotoService;
 import kodlamaio.hrms.core.utilities.Result;
 import kodlamaio.hrms.core.utilities.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CondidateDao;
@@ -19,14 +19,14 @@ import kodlamaio.hrms.entities.concretes.Image;
 public class ImageManager implements ImageService{
 
 	private ImageDao imageDao;
-	private CloudinaryService cloudinaryService;
+	private PhotoService photoService;
 	private CondidateDao condidateDao;
 	
 	@Autowired
-	public ImageManager(ImageDao imageDao, CloudinaryService cloudinaryService, CondidateDao condidateDao) {
+	public ImageManager(ImageDao imageDao, PhotoService photoService, CondidateDao condidateDao) {
 		super();
 		this.imageDao = imageDao;
-		this.cloudinaryService = cloudinaryService;
+		this.photoService = photoService;
 		this.condidateDao = condidateDao;
 	}
 
@@ -39,7 +39,7 @@ public class ImageManager implements ImageService{
 		image.setCondidate(condidate);
 		
 		@SuppressWarnings("unchecked")
-		Map<String,String> uploadImage = this.cloudinaryService.uploadImageFile(imageFile).getData();
+		Map<String,String> uploadImage = this.photoService.uploadImageFile(imageFile).getData();
 		image.setUrl(uploadImage.get("url"));
 		this.imageDao.save(image);
 		return new SuccessResult("Data kaydedildi");
