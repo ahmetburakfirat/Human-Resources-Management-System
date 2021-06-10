@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kodlamaio.hrms.business.abstracts.CondidateService;
 import kodlamaio.hrms.core.utilities.DataResult;
 import kodlamaio.hrms.entities.concretes.Condidate;
+import kodlamaio.hrms.entities.dtos.CondidateWithResumeDto;
 import kodlamaio.hrms.core.utilities.ErrorDataResult;
 
 @RestController
@@ -45,6 +47,11 @@ public class CondidateController {
 	@PostMapping("/add")
 	public ResponseEntity<?> add(@Valid @RequestBody Condidate condidate){
 		return ResponseEntity.ok(this.condidateService.add(condidate));
+	}
+	
+	@GetMapping("/getCondidateWithResumeDto")
+	public DataResult<List<CondidateWithResumeDto>> getCondidateWithResumeDto(@RequestParam int condidateId){
+		return this.condidateService.getCondidateWithResumeDto(condidateId);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

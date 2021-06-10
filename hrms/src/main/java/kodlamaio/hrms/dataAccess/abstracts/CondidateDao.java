@@ -13,4 +13,5 @@ public interface CondidateDao extends JpaRepository<Condidate, Integer>{
 	List<Condidate> findByİdentityNumber(String identityNumber);
 	
 	Condidate getById(int condidateId);
+	
 }

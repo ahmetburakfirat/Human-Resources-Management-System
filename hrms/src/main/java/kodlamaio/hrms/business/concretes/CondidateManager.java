@@ -14,17 +14,44 @@ import kodlamaio.hrms.core.utilities.Result;
 import kodlamaio.hrms.core.utilities.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CondidateDao;
+import kodlamaio.hrms.dataAccess.abstracts.CoverLetterDao;
+import kodlamaio.hrms.dataAccess.abstracts.GithubLinkDao;
+import kodlamaio.hrms.dataAccess.abstracts.ImageDao;
+import kodlamaio.hrms.dataAccess.abstracts.JobExperienceDao;
+import kodlamaio.hrms.dataAccess.abstracts.LanguageDao;
+import kodlamaio.hrms.dataAccess.abstracts.LinkedinLinkDao;
+import kodlamaio.hrms.dataAccess.abstracts.SchoolDao;
+import kodlamaio.hrms.dataAccess.abstracts.SoftwareOrTechDao;
 import kodlamaio.hrms.entities.concretes.Condidate;
+import kodlamaio.hrms.entities.dtos.CondidateWithResumeDto;
 
 @Service
 public class CondidateManager implements CondidateService{
 
 	private CondidateDao condidateDao;
+	private CoverLetterDao coverLetterDao;
+	private GithubLinkDao githubLinkDao;
+	private ImageDao imageDao;
+	private JobExperienceDao jobExperienceDao;
+	private LanguageDao languageDao; 
+	private LinkedinLinkDao linkedinLinkDao;
+	private SchoolDao schoolDao;
+	private SoftwareOrTechDao softwareOrTechDao;
 	
 	@Autowired
-	public CondidateManager(CondidateDao condidateDao) {
+	public CondidateManager(CondidateDao condidateDao, CoverLetterDao coverLetterDao, GithubLinkDao githubLinkDao,
+			ImageDao imageDao, JobExperienceDao jobExperienceDao, LanguageDao languageDao,
+			LinkedinLinkDao linkedinLinkDao, SchoolDao schoolDao, SoftwareOrTechDao softwareOrTechDao) {
 		super();
 		this.condidateDao = condidateDao;
+		this.coverLetterDao = coverLetterDao;
+		this.githubLinkDao = githubLinkDao;
+		this.imageDao = imageDao;
+		this.jobExperienceDao = jobExperienceDao;
+		this.languageDao = languageDao;
+		this.linkedinLinkDao = linkedinLinkDao;
+		this.schoolDao = schoolDao;
+		this.softwareOrTechDao = softwareOrTechDao;
 	}
 
 	@Override
@@ -74,6 +101,21 @@ public class CondidateManager implements CondidateService{
 		
 		
 		return new SuccessResult("Kayıt başarılı e-posta doğrulama bekleniyor.");
+	}
+
+	@Override
+	public DataResult<List<CondidateWithResumeDto>> getCondidateWithResumeDto(int condidateId) {
+		CondidateWithResumeDto condidateWithResumeDto = new CondidateWithResumeDto();
+		condidateWithResumeDto.setId(condidateId);
+		condidateWithResumeDto.setCoverLetter(this.coverLetterDao.findByCondidate_Id(condidateId));
+		condidateWithResumeDto.setGithubLink(this.githubLinkDao.findByCondidate_Id(condidateId));
+		condidateWithResumeDto.setImage(this.imageDao.findByCondidate_Id(condidateId));
+		condidateWithResumeDto.setJobExperiences(this.jobExperienceDao.findByCondidate_IdOrderByEndYearDesc(condidateId));
+		condidateWithResumeDto.setLanguages(this.languageDao.findByCondidate_Id(condidateId));
+		condidateWithResumeDto.setLinkedinLink(this.linkedinLinkDao.findByCondidate_Id(condidateId));
+		condidateWithResumeDto.setSchools(this.schoolDao.findByCondidate_IdOrderByEndYearDesc(condidateId));
+		condidateWithResumeDto.setSoftwareOrTechs(this.softwareOrTechDao.findByCondidate_Id(condidateId));
+		return new SuccessDataResult(condidateWithResumeDto,"Kayıt başarılı");
 	}
 	
 	
