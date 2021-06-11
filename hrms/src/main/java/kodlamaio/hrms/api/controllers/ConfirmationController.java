@@ -37,7 +37,7 @@ public class ConfirmationController {
 	
 	@PostMapping("/add")
 	public Result add(@RequestBody ConfirmationCode confirmationCode) {
-		return this.confirmationCodeService.createAndSendCode(new User(0, "asd", "12345"));
+		return this.confirmationCodeService.createAndSendCode(0);
 	}
 	
 }

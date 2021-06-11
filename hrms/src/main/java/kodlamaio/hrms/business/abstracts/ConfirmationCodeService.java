@@ -9,5 +9,5 @@ import kodlamaio.hrms.entities.concretes.ConfirmationCode;
 
 public interface ConfirmationCodeService {
 	DataResult<List<ConfirmationCode>> getAll();
-	Result createAndSendCode(User user);
+	Result createAndSendCode(int userId);
 }

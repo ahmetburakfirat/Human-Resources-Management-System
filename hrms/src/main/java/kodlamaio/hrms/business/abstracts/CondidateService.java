@@ -13,5 +13,5 @@ public interface CondidateService {
 	
 	Result add(Condidate condidate);
 	
-	DataResult<List<CondidateWithResumeDto>> getCondidateWithResumeDto(int condidateId);
+	DataResult<CondidateWithResumeDto> getCondidateWithResumeDto(int condidateId);
 }

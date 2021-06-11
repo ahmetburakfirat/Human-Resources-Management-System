@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,8 +31,8 @@ public class ConfirmationCode {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "user_id")
-	private int userId;
+//	@Column(name = "user_id")
+//	private int userId;
 	
 	@Column(name = "code")
 	private String code;
@@ -40,4 +42,10 @@ public class ConfirmationCode {
 	
 	@Column(name = "confirmation_date")
 	private Date confirmationDate;
+	
+	
+	@OneToOne(mappedBy = "confirmationCode")
+	private CondidateConfirmationCode condidateConfirmationCode;
+
+	
 }

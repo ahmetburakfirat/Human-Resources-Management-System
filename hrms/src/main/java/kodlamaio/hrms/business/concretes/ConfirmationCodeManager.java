@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.DataResult;
 import kodlamaio.hrms.core.utilities.Result;
 import kodlamaio.hrms.core.utilities.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.SuccessResult;
+import kodlamaio.hrms.dataAccess.abstracts.CondidateConfirmationCodeDao;
 import kodlamaio.hrms.dataAccess.abstracts.ConfirmationCodeDao;
 import kodlamaio.hrms.entities.abstracts.User;
 import kodlamaio.hrms.entities.concretes.ConfirmationCode;
@@ -20,15 +21,17 @@ import kodlamaio.hrms.entities.concretes.ConfirmationCode;
 public class ConfirmationCodeManager implements ConfirmationCodeService{
 
 	
-	public ConfirmationCodeDao confirmationCodeDao;
-	
-	
+	private ConfirmationCodeDao confirmationCodeDao;
+	private CondidateConfirmationCodeDao condidateConfirmationCodeDao;
 	
 	@Autowired
-	public ConfirmationCodeManager(ConfirmationCodeDao confirmationCodeDao) {
+	public ConfirmationCodeManager(ConfirmationCodeDao confirmationCodeDao,
+			CondidateConfirmationCodeDao condidateConfirmationCodeDao) {
 		super();
 		this.confirmationCodeDao = confirmationCodeDao;
+		this.condidateConfirmationCodeDao = condidateConfirmationCodeDao;
 	}
+
 
 
 	public DataResult<List<ConfirmationCode>> getAll() {
@@ -37,22 +40,18 @@ public class ConfirmationCodeManager implements ConfirmationCodeService{
 	}
 
 
-	
-	public  Result createAndSendCode(User user) {
+	@Override
+	public  Result createAndSendCode(int userId) {
+		
+		//Eksikler var daha tamamlanmadı
 		
 		int random_num = 1000 + (int) (Math.random() * 10000-1000);
 		
 		String code  = Integer.toString(random_num);
-//		
-//		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-//		LocalDateTime now = LocalDateTime.now();
-		//dtf.format(now)
-		
-//		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 		Date date = new Date(System.currentTimeMillis());
-//		System.out.println(formatter.format(date) + date);
 		
-		confirmationCodeDao.save(new ConfirmationCode(0, user.getId(), code, false, date ));
+		
 			
 		
 		return new SuccessResult("İşlem başarılı.");

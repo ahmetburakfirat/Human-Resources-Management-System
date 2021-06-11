@@ -104,7 +104,7 @@ public class CondidateManager implements CondidateService{
 	}
 
 	@Override
-	public DataResult<List<CondidateWithResumeDto>> getCondidateWithResumeDto(int condidateId) {
+	public DataResult<CondidateWithResumeDto> getCondidateWithResumeDto(int condidateId) {
 		CondidateWithResumeDto condidateWithResumeDto = new CondidateWithResumeDto();
 		condidateWithResumeDto.setId(condidateId);
 		condidateWithResumeDto.setCoverLetter(this.coverLetterDao.findByCondidate_Id(condidateId));
@@ -115,7 +115,7 @@ public class CondidateManager implements CondidateService{
 		condidateWithResumeDto.setLinkedinLink(this.linkedinLinkDao.findByCondidate_Id(condidateId));
 		condidateWithResumeDto.setSchools(this.schoolDao.findByCondidate_IdOrderByEndYearDesc(condidateId));
 		condidateWithResumeDto.setSoftwareOrTechs(this.softwareOrTechDao.findByCondidate_Id(condidateId));
-		return new SuccessDataResult(condidateWithResumeDto,"Kayıt başarılı");
+		return new SuccessDataResult<CondidateWithResumeDto>(condidateWithResumeDto,"İşlem başarılı");
 	}
 	
 	

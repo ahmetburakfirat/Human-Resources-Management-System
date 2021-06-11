@@ -77,5 +77,9 @@ public class Condidate extends User{
 	@JsonIgnore
 	@OneToOne(mappedBy = "condidate")
 	private CoverLetter coverLetter;
+	
+	@JsonIgnore
+	@OneToOne(mappedBy = "condidate")
+	private CondidateConfirmationCode condidateConfirmationCode;
 
 }

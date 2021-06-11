@@ -50,7 +50,7 @@ public class CondidateController {
 	}
 	
 	@GetMapping("/getCondidateWithResumeDto")
-	public DataResult<List<CondidateWithResumeDto>> getCondidateWithResumeDto(@RequestParam int condidateId){
+	public DataResult<CondidateWithResumeDto> getCondidateWithResumeDto(@RequestParam int condidateId){
 		return this.condidateService.getCondidateWithResumeDto(condidateId);
 	}
 	
